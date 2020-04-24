@@ -8,11 +8,11 @@ class TFConv2d(nn.Module):
     forward is called for the first time.
     """
 
-    def __init__(self, out_channels: int, kernel_size: int = 3, stride: int = 1, padding: int = 1,
+    def __init__(self, filters: int, kernel_size: int = 3, stride: int = 1, padding: int = 1,
                  bias: bool = True) -> None:
         """
         Constructor method
-        :param out_channels: (int) Number of output channels
+        :param filters: (int) Number of filters
         :param kernel_size: (int) Kernel size to be utilized
         :param stride: (int) Stride factor to be used
         :param padding: (int) Padding factor
@@ -21,12 +21,12 @@ class TFConv2d(nn.Module):
         # Call super constructor
         super(TFConv2d, self).__init__()
         # Save arguments
-        self.out_channels = out_channels
+        self.filters = filters
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
         # Init bias weights
-        self.bias = nn.Parameter(torch.zeros(out_channels)) if bias else None
+        self.bias = nn.Parameter(torch.zeros(filters)) if bias else None
         # Init weight tensor
         self.weight: nn.Parameter = None
 
@@ -40,7 +40,7 @@ class TFConv2d(nn.Module):
         if self.weight is None:
             # Init weight with random normal tensor. Number of input channels are determent by input tensor.
             self.weight = nn.Parameter(
-                torch.randn(self.out_channels, input.shape[1], self.kernel_size, self.kernel_size, dtype=torch.float,
+                torch.randn(self.filters, input.shape[1], self.kernel_size, self.kernel_size, dtype=torch.float,
                             device=self.bias.device))
         # Perform convolution
         output = F.conv2d(input=input, weight=self.weight, bias=self.bias, stride=self.stride, padding=self.padding)
