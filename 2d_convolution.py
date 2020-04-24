@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 class TFConv2d(nn.Module):
     """
-    This module implements a TensorFlow like convolution, where the number of input channels gets determent if
+    This module implements a TensorFlow like convolution, where the number of input channels gets determend if
     forward is called for the first time.
     """
 
