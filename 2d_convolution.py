@@ -34,7 +34,7 @@ class TFConv2d(nn.Module):
         """
         Forward pass
         :param input: (torch.Tensor) Input tensor of shape (batch size, in channels, height, width)
-        :return: (torch.Tensor) Output tensor of shape (batch size, out channels, height, width)
+        :return: (torch.Tensor) Output tensor of shape (batch size, out channels (filters), height, width)
         """
         # Check if weights are not none
         if self.weight is None:
